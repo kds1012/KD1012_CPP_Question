@@ -1,0 +1,66 @@
+   
+// C++ program to count distinct number in array. 
+#include <iostream> 
+#include <unordered_set> 
+#include <vector>
+using namespace std;
+
+//Counting distinct number from the array
+int countDistinctNumber(int arr[], int n){
+    int count = 0;
+    bool isDistinct = true;
+    for(int i=0; i<n; ++i){
+        isDistinct = true;
+        for(int j=i-1; j>=0 ; j--){
+            if(arr[i] == arr[j]){
+                isDistinct = false;
+                break;
+            }
+        }
+        if(isDistinct == true){
+            count++;
+        }
+    }
+    return count;
+}
+//Counting distinct number from the array
+int countDistinct(int arr[], int n) {
+    unordered_set<int> s;
+    for (int i = 0; i < n; ++i) {
+        if (s.find(arr[i]) == s.end()) {
+            s.insert(arr[i]);
+        }
+    }
+    return s.size();
+}
+
+//Printing distinct number from the array
+unordered_set<int> printDistinct(int arr[], int n) {
+    unordered_set<int> s;
+    for (int i = 0; i < n; ++i) {
+        if (s.find(arr[i]) == s.end()) {
+            s.insert(arr[i]);
+        }
+    }
+    return s;
+}
+
+int main(){
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0; i<n; ++i){
+        cin>>arr[i];
+    }
+    cout<<"Total Distinct number in the array are: "<<countDistinctNumber(arr,n)<<endl;
+    unordered_set<int> s = printDistinct(arr,n);
+    cout<<"Print Distinct number in the array: "<<endl;
+    vector<int> vec(s.begin(),s.end()); //Vector recieved data in sorted order(Desceneding)
+    sort(vec.begin(),vec.end()); //Sorted the vector in ascending order
+    for(auto e : vec){
+    cout<<e<<" "; // Printing vector data
+    }
+    cout<<endl;
+    cout<<Total Distinct number in the array are: "<<countDistinct(arr,n)<<endl;
+return 0;
+}
