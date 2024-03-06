@@ -1,0 +1,14 @@
+// C++ program to demonstrate a sort an array using sort function 
+#include <iostream> 
+#include <algorithm> 
+using namespace std;
+int main() 
+{ 
+    int arr[] = {10,3,23,1,8}; //Declaration of array
+    int n = sizeof(arr)/sizeof(arr[0]); //Fininding size of an array
+    sort(arr, arr+n);
+    for(auto e: arr){
+        cout<<e<<" ";
+    }
+    return 0; 
+}
