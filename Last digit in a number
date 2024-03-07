@@ -1,0 +1,17 @@
+// C++ program to check Last digit in a number. 
+#include <iostream> 
+using namespace std;
+
+int lastDigit(int n){
+        while(n>= 10){
+            n = n/10;
+        } 
+        return n;
+}
+
+int main(){
+    int n;
+    cin>>n;
+    cout<<"Last digit in a number: "<<lastDigit(n);
+    return 0;
+}
