@@ -1,0 +1,25 @@
+#include <iostream> 
+using namespace std;
+
+void findElementINArray(int arr[],int key,int n){
+    for(int i=0;i<n;i++){
+        if(arr[i] == key){
+            cout<<"Elements "<<key<<" found at position: "<<i+1;
+        }
+    }
+}
+int main(){
+    cout<<"Enter the size of array"<<endl;
+    int n;
+    cin>>n;
+    cout<<"Enter the array"<<endl;
+    int arr[n];
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    cout<<"Enter the element to search"<<endl;
+    int key;
+    cin>>key;
+    findElementINArray(arr,key,n);
+    return 0;
+}
