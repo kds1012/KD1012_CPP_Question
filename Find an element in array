@@ -5,6 +5,7 @@ void findElementINArray(int arr[],int key,int n){
     for(int i=0;i<n;i++){
         if(arr[i] == key){
             cout<<"Elements "<<key<<" found at position: "<<i+1;
+            break;
         }
     }
 }
