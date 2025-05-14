@@ -1,0 +1,47 @@
+#include <iostream>
+#include <cctype>
+using namespace std;
+
+bool isPalindrome(const string& str)
+{
+    string convertedString;
+    int stringLength = str.length();
+    for (int i = stringLength - 1; i >= 0; --i)
+    {
+        convertedString += str[i];
+    }
+    return str == convertedString;
+}
+
+string checkAlphabetCase(string s)
+{
+    string str;
+    for (char ch : s)
+    {
+        if (!isalnum(ch)) continue;     // skip punctuation, space, etc.
+        str += toupper(ch);             // normalize case
+    }
+    return str;
+}
+
+int main() {
+    string strOriginal = "A man, a plan, a canal, Panama";
+    string uppercaseConvertedStr = checkAlphabetCase(strOriginal);
+    
+    bool isStringPalindrome = isPalindrome(uppercaseConvertedStr);
+    
+    if (isStringPalindrome)
+    {
+        cout << "String is Palindrome, Original String: "
+             << strOriginal << " and Upper case Converted String: "
+             << uppercaseConvertedStr << endl;
+    }
+    else
+    {
+        cout << "String is not Palindrome, Original String: "
+             << strOriginal << " and Upper case Converted String: "
+             << uppercaseConvertedStr << endl;
+    }
+    
+    return 0;
+}
