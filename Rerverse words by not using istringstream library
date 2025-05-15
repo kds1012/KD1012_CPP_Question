@@ -1,0 +1,86 @@
+#include<iostream>
+#include<string>
+#include<sstream>
+#include<vector>
+#include<cctype>
+#include<algorithm>
+
+using namespace std;
+
+string cleanString(const string& m_str)
+{
+    string str;
+    for (char ch : m_str)
+    {
+        if (isalnum(ch) || isspace(ch))
+        str += ch;
+    }
+    return str;
+}
+
+vector<string> reverseWordsInSentence(vector<string> vectorString)
+{
+    if (vectorString.empty())
+    {
+        cout<< "Vector is empty!"<<endl;
+        return {};
+    }
+    reverse(vectorString.begin(),vectorString.end());
+    return vectorString;
+}
+
+void reverseString(const string& sentence)
+{
+   // istringstream ss(sentence);
+   // string word;
+    //vector<string> wordStrings;
+   string word;
+        vector<string> wordsInSentece;
+        
+        for(auto ch: sentence)
+        {
+            if(isspace(ch))
+            {
+                if(!word.empty())
+                {
+                    wordsInSentece.push_back(word);
+                    word.clear();
+                }
+            }
+            else
+            {
+                 word +=ch;
+            }
+        }
+        if (!word.empty()) {
+    wordsInSentece.push_back(word);
+}
+         for (auto word : wordsInSentece)
+   cout << "Words reversed in the Sentence : " << word << endl;
+   auto reverseStrings =  reverseWordsInSentence(wordsInSentece);
+   
+    for (auto word : reverseStrings)
+   cout << "Words reversed in the Sentence : " << word << endl;
+   
+    if (reverseStrings.empty())
+    {
+        cout<< "Vector is empty!"<<endl;
+    }
+    
+   string finalReverseStr;
+   for(size_t i =0; i<reverseStrings.size(); ++i)
+   {
+       finalReverseStr += reverseStrings[i];
+       if(i != reverseStrings.size()-1)
+        finalReverseStr += " ";
+   }
+   cout << finalReverseStr;
+}
+int main()
+{
+    string m_str = "i like this program very much";
+    string cleanedString = cleanString(m_str);
+    cout << "String before Reverse : "<< cleanedString << endl;
+    reverseString(cleanedString);
+    return 0;
+}
