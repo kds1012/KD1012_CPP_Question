@@ -1,0 +1,28 @@
+#include<iostream>
+#include<memory>
+
+using namespace std;
+
+class SharedPtr
+{
+    public:
+    void display()
+    {
+        cout<<"Called from Display"<< endl;
+    }
+};
+
+
+int main()
+{
+    shared_ptr<SharedPtr> ptr(new SharedPtr);
+   shared_ptr<SharedPtr> ptr1(new SharedPtr);
+    cout << ptr.get() << endl;
+     cout << ptr1.get() << endl;
+    
+    
+   ptr->display();
+    ptr1->display();
+    
+    return 0;
+}
