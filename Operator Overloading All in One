@@ -1,0 +1,165 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class SuperClass {
+private:
+    int* data;
+    int size;
+
+public:
+    // Constructor: initializes array with default values (0 to size-1)
+    SuperClass(int s = 5) : size(s) {
+        data = new int[size];
+        for (int i = 0; i < size; ++i) data[i] = i;
+    }
+
+    // Copy constructor for deep copy
+    SuperClass(const SuperClass& other) : size(other.size) {
+        data = new int[size];
+        for (int i = 0; i < size; ++i)
+            data[i] = other.data[i];
+    }
+
+    // Assignment operator for deep copy
+    SuperClass& operator=(const SuperClass& other) {
+        if (this != &other) {
+            delete[] data; // clean up old memory
+            size = other.size;
+            data = new int[size];
+            for (int i = 0; i < size; ++i)
+                data[i] = other.data[i];
+        }
+        return *this;
+    }
+
+    // Destructor to release dynamically allocated memory
+    ~SuperClass() {
+        delete[] data;
+    }
+
+    // Overloaded + operator: adds corresponding elements of two objects
+    SuperClass operator+(const SuperClass& other) {
+        SuperClass result(size);
+        for (int i = 0; i < size; ++i)
+            result.data[i] = this->data[i] + other.data[i];
+        return result;
+    }
+
+    // Overloaded - operator: subtracts corresponding elements
+    SuperClass operator-(const SuperClass& other) {
+        SuperClass result(size);
+        for (int i = 0; i < size; ++i)
+            result.data[i] = this->data[i] - other.data[i];
+        return result;
+    }
+
+    // Overloaded * operator: multiply each element with a scalar
+    SuperClass operator*(int scalar) {
+        SuperClass result(size);
+        for (int i = 0; i < size; ++i)
+            result.data[i] = this->data[i] * scalar;
+        return result;
+    }
+
+    // Equality operator: compares two objects element-by-element
+    bool operator==(const SuperClass& other) const {
+        for (int i = 0; i < size; ++i)
+            if (data[i] != other.data[i])
+                return false;
+        return true;
+    }
+
+    // Inequality operator: reverse of ==
+    bool operator!=(const SuperClass& other) const {
+        return !(*this == other);
+    }
+
+    // Less-than operator: compares sum of all elements
+    bool operator<(const SuperClass& other) const {
+        int sum1 = 0, sum2 = 0;
+        for (int i = 0; i < size; ++i) {
+            sum1 += data[i];
+            sum2 += other.data[i];
+        }
+        return sum1 < sum2;
+    }
+
+    // Greater-than operator: uses < internally
+    bool operator>(const SuperClass& other) const {
+        return other < *this;
+    }
+
+    // Prefix increment: increases each element by 1
+    SuperClass& operator++() {
+        for (int i = 0; i < size; ++i)
+            data[i]++;
+        return *this;
+    }
+
+    // Postfix increment: saves current state and then increments
+    SuperClass operator++(int) {
+        SuperClass temp = *this;
+        ++(*this); // call prefix version
+        return temp;
+    }
+
+    // Subscript operator: allows object[index] access
+    int& operator[](int index) {
+        return data[index];
+    }
+
+    // Function call operator: returns average of elements
+    double operator()() const {
+        int sum = 0;
+        for (int i = 0; i < size; ++i)
+            sum += data[i];
+        return (double)sum / size;
+    }
+
+    // Output stream operator: prints array in [ a b c ] format
+    friend ostream& operator<<(ostream& out, const SuperClass& obj) {
+        out << "[ ";
+        for (int i = 0; i < obj.size; ++i)
+            out << obj.data[i] << " ";
+        out << "]";
+        return out;
+    }
+
+    // Input stream operator: reads array elements from user
+    friend istream& operator>>(istream& in, SuperClass& obj) {
+        cout << "Enter " << obj.size << " integers:\n";
+        for (int i = 0; i < obj.size; ++i)
+            in >> obj.data[i];
+        return in;
+    }
+};
+
+int main() {
+    SuperClass a(5), b(5);
+
+    // Input objects
+    cin >> a >> b;
+
+    // Arithmetic + operator
+    SuperClass c = a + b;
+    cout << "a + b = " << c << endl;
+
+    // Subscript
+    cout << "a[2] = " << a[2] << endl;
+
+    // Function call operator
+    cout << "Average of a: " << a() << endl;
+
+    // Relational operators
+    cout << "Comparing a and b: " << (a == b ? "Equal" : "Not Equal") << endl;
+
+    // Postfix increment
+    cout << "a++: " << a++ << endl;
+    cout << "After a++: " << a << endl;
+
+    // Prefix increment
+    cout << "++b: " << ++b << endl;
+
+    return 0;
+}
